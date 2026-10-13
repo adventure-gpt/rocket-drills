@@ -1,5 +1,8 @@
 # rocket-drills
 
+[![tests](https://github.com/adventure-gpt/rocket-drills/actions/workflows/tests.yml/badge.svg)](https://github.com/adventure-gpt/rocket-drills/actions/workflows/tests.yml)
+[![licence: MIT](https://img.shields.io/badge/licence-MIT-blue.svg)](LICENSE)
+
 Practice scenarios and skill counters for Rocket League bots trained with
 [RLGym](https://rlgym.org) v2.
 
