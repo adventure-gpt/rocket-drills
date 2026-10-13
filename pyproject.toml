@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rocket-drills"
+version = "0.1.0"
+description = "Practice scenarios (state mutators) and skill counters for Rocket League bots trained with RLGym v2."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "adventure-gpt" }]
+keywords = ["rocket-league", "rlgym", "reinforcement-learning", "rocketsim", "state-setter"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Typing :: Typed",
+]
+dependencies = [
+    "numpy>=1.22",
+    "rlgym-api>=2.0,<3",
+    "rlgym-rocket-league[sim]>=2.0.1,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.9"]
+
+[project.urls]
+Homepage = "https://github.com/adventure-gpt/rocket-drills"
+Issues = "https://github.com/adventure-gpt/rocket-drills/issues"
+Changelog = "https://github.com/adventure-gpt/rocket-drills/blob/main/CHANGELOG.md"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rocket_drills"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "examples", "docs", "tools", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = ["sim: steps the RocketSim simulator (skipped when it cannot be started)"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RUF", "D", "ANN", "T20", "PT"]
+ignore = [
+    "D105",   # docstrings on magic methods
+    "D107",   # __init__ is documented in the class docstring
+    "ANN401", # shared_info is a dict of Any by RLGym's design
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["rocket_drills", "helpers", "physical"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "ANN"]
+"examples/*" = ["D103", "T20", "ANN"]
+"tools/*" = ["D103", "T20", "ANN"]
